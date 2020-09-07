@@ -1,0 +1,7 @@
+# Instação do yarn
+- npm install -g yarn
+
+# Iniciando o projeto (acesso o diretorio do projeto)
+- yarn start
+
+
