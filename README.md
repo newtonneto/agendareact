@@ -6,11 +6,11 @@ Agenda simples feita em ReactJS
 
 ## Instalação
 Após clonar o projeto, acesse a raíz de seu diretório e execute os seguintes comandos:
-Baixar as dependências
+- Baixar as dependências
 ```sh
   yarn
  ```
-Executar o projeto
+- Executar o projeto
 ```sh
   yarn start
 ```
