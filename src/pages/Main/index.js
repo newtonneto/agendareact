@@ -45,7 +45,7 @@ function Main() {
                             <div key={index_contact}>
                                 <div className="row">
                                     <div className="col-sm">
-                                        <label>{ index_contact } - { contact.name }</label>
+                                        <label>{ index_contact + 1 } - { contact.name }</label>
                                     </div>
                                     <div className="col-sm">
                                         {contact.numbers.map((number, index_number) => (
