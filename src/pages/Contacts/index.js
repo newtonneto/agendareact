@@ -9,11 +9,15 @@ function Contacts() {
     return (
         <>
             <ul>
-                {contactList.map(contact => (
-                    <li key={contact.name}>
-                        {contact.name}
-                    </li>
-                ))}
+                {/* Condicional para verificar se existe contatos cadastrados */}
+                {contactList 
+                    ? contactList.map(contact => (
+                        <li key={contact.name}>
+                            {contact.name}
+                        </li>
+                        ))
+                    : <h1>teste</h1>
+                }
             </ul>
         </>
     );
