@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
+    "jquery-mask-plugin": "^1.14.16",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",

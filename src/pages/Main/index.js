@@ -1,66 +1,75 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import './rango-jquery.js';
+import '../../static/main.css';
 
-function Main(props) {
-    const handleSubmit = e => {
-        //Impede que a página recarregue a cada envio do form
-        e.preventDefault();
+function Main() {
+    //Recebe a lista de contatos salvos na sessão, em formato JSON
+    const contactListJson = sessionStorage.getItem('contactList');
 
-        const data = new FormData(e.target)
+    //Deserializa a lista
+    let contactList = JSON.parse(contactListJson);
 
-        //Recebe o array de telefones
-        let numbers = [];
-        let indice = 1;
+    const history = useHistory();
 
-        while (data.get(`number${indice}`)) {
-            numbers.push(data.get(`number${indice}`));
+    const redirectToNewContact = () => {
+        let path = '/newcontact';
+        history.push(path);
+    }
 
-            indice++;
-        }
+    const redirectToEditContact = (id) => {
+        let path = `/editcontact/${id}`;
+        history.push(path);
+    }
 
-        const contact = {
-            'name': data.get('name'),
-            'number': numbers,
-            'email': data.get('email'),
-        };
-
-        let session = JSON.parse(sessionStorage.getItem('contactList'));
-
-        //Verifica se a sessão está vazia, se estiver inicia a lista
-        if (!session) {
-            session = []
-        }
-
-        session.push(contact);
-        sessionStorage.setItem('contactList', JSON.stringify(session));
-
-        props.history.push('/contacts');
-    };
+    const redirectToRemoveContact = (id) => {
+        contactList.splice(id, 1);
+        sessionStorage.setItem('contactList', JSON.stringify(contactList));
+        history.push('/')
+    }
 
     return (
         <>
-            <h1>New Contact:</h1>
-
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Name" name="name" id="name" />
-                <br/>
-                
-                <div className="input_fields_wrap">
-                    <div>
-                        <input type="text" placeholder="Number" name="number1" id="number1" />
-                        <br/>
+            <div className="d-flex justify-content-center">
+                <div className="container">
+                    <br/>
+                    <div className="d-flex justify-content-start">
+                        <button className="btn btn-primary" onClick={redirectToNewContact} >New Contact</button>
                     </div>
+                    <br/>
+                    <h2>Contact List</h2>
+                    <br/>
+                    {/* Condicional para verificar se existe contatos cadastrados */}
+                    {contactList
+                        ? contactList.map((contact, index_contact) => (
+                            <div key={index_contact}>
+                                <div className="row">
+                                    <div className="col-sm">
+                                        <label>{ index_contact } - { contact.name }</label>
+                                    </div>
+                                    <div className="col-sm">
+                                        {contact.numbers.map((number, index_number) => (
+                                            <li key={index_number}>
+                                                {number}
+                                            </li>
+                                        ))}
+                                    </div>
+                                    <div className="col-sm">
+                                        <label>{ contact.email }</label>
+                                    </div>
+                                    <div className="col-sm">
+                                        {/* Utilizar a Arrow Function quanto passar parametros para a função */}
+                                        <button className="btn btn-warning btn_pad" onClick={() => redirectToEditContact(index_contact)} >Edit</button>
+                                        <button className="btn btn-danger" onClick={() => redirectToRemoveContact(index_contact)} >Remove</button>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        ))
+                        : <p>Contact List Empty</p>
+                    }
                 </div>
-
-                <button type="button" className="add_field_button btn btn-primary btn-user">More</button>
-                <br/>
-                
-
-                <input type="text" placeholder="Email" name="email" id="email" />
-                <br/>
-                <button type="submit" value="Save" className="btn btn-success" >Save</button>
-            </form>
+            </div>
         </>
     );
 }
