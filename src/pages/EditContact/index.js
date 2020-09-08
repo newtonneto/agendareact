@@ -95,7 +95,7 @@ function EditContact(props) {
                                         </div>
                                     </div>
 
-                                    <button type="button" className="add_field_button btn btn-primary btn-user btn_pad" onClick={PhoneMask} >One More Number</button>
+                                    <button type="button" className="add_field_button btn btn-primary btn-user btn_pad" onClick={PhoneMask} >Add Phone Number</button>
                                 </>
                                 : null
                             }
