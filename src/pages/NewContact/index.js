@@ -85,7 +85,7 @@ function NewContact(props) {
                             </div>
                             
                             {/* O botão a seguir deve chamar a função PhoneMask para aplicar a mascara ao novo input gerado */}
-                            <button type="button" className="add_field_button btn btn-primary btn-user btn_pad" onClick={PhoneMask}>One More Number</button>
+                            <button type="button" className="add_field_button btn btn-primary btn-user btn_pad" onClick={PhoneMask}>Add Phone Number</button>
                             <input type="submit" value="Save" className="btn btn-success" />
                         </div>
                     </form>
